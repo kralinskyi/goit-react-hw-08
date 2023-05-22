@@ -1,11 +1,25 @@
 import { Component } from 'react';
 
-class FormLogin extends Component {
-  state = {
-    email: '',
-    password: '',
-  };
+const INITIAL_STATE = {
+  email: '',
+  password: '',
+  isChecked: true,
+  gender: 'male',
+};
 
+class FormLogin extends Component {
+  state = { ...INITIAL_STATE };
+
+  // componentDidMount() {
+  //   console.log('Mount');
+  // }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log('update');
+  // }
+  // componentWillUnmount() {
+  //   console.log('unmount');
+  // }
   handleChange = ({ target }) => {
     this.setState({ [target.name]: target.value });
   };
@@ -15,14 +29,28 @@ class FormLogin extends Component {
     this.props.createUser({
       email: this.state.email,
       password: this.state.password,
+      gender: this.state.gender,
     });
+    this.setState({
+      email: '',
+      password: '',
+    });
+    this.props.closeModal();
+  };
+
+  handleCheck = ({ target: { checked } }) => {
+    this.setState({ isChecked: checked });
+  };
+
+  handleGenderChange = ({ target: { value } }) => {
+    this.setState({ gender: value });
   };
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
-          Name:
+          email:
           <input
             name="email"
             type="email"
@@ -30,7 +58,9 @@ class FormLogin extends Component {
             value={this.state.email}
           />
         </label>
+        <br />
         <label>
+          name:
           <input
             name="password"
             type="password"
@@ -39,7 +69,40 @@ class FormLogin extends Component {
           />
         </label>
         <br />
-        <button type="submit">submit</button>
+        <div>
+          <input
+            type="checkbox"
+            name="checkbox"
+            checked={this.state.isChecked}
+            onChange={this.handleCheck}
+          />
+          <label htmlFor="checkbox">I agree</label>
+        </div>
+        <div className="form-check">
+          <input
+            type="radio"
+            name="gender"
+            id="radio1"
+            value="male"
+            checked={this.state.gender === 'male'}
+            onChange={this.handleGenderChange}
+          />
+          <label htmlFor="genderMale">Male</label>
+        </div>
+        <div className="form-check">
+          <input
+            type="radio"
+            name="gender"
+            id="radio2"
+            value="female"
+            checked={this.state.gender === 'female'}
+            onChange={this.handleGenderChange}
+          />
+          <label htmlFor="genderFemale">Female</label>
+        </div>
+        <button disabled={!this.state.isChecked} type="submit">
+          submit
+        </button>
       </form>
     );
   }

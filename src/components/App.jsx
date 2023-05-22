@@ -2,9 +2,10 @@ import { Component } from 'react';
 import Header from './Header/Header';
 // import Counter from './Counter/Counter';
 import Modal from './Modal/Modal';
-// import ToDoList from './ToDoList/ToDoList';
+import ToDoList from './ToDoList/ToDoList';
 import FormLogin from './FormLogin/FormLogin';
-// import FormRegistration from './FormRegistration/FormRegistration';
+
+// import FormToDo from './FormToDo/FormToDo';
 
 class App extends Component {
   state = {
@@ -31,10 +32,13 @@ class App extends Component {
         {/* <Counter /> */}
         {this.state.isModalShow && (
           <Modal closeModal={this.closeModal}>
-            <FormLogin createUser={this.createUser} />
+            <FormLogin
+              createUser={this.createUser}
+              closeModal={this.closeModal}
+            />
           </Modal>
         )}
-        {/* <ToDoList /> */}
+        <ToDoList />
       </div>
     );
   }
