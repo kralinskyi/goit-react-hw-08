@@ -4,6 +4,7 @@ import Header from './Header/Header';
 import Modal from './Modal/Modal';
 import ToDoList from './ToDoList/ToDoList';
 import FormLogin from './FormLogin/FormLogin';
+import Search from './Search/Search';
 
 // import FormToDo from './FormToDo/FormToDo';
 
@@ -38,7 +39,8 @@ class App extends Component {
             />
           </Modal>
         )}
-        <ToDoList />
+        {/* <ToDoList /> */}
+        <Search />
       </div>
     );
   }
