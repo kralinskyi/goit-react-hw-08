@@ -1,7 +1,0 @@
-[
-  { "id": 1, "title": "work", "completed": true },
-  { "id": 2, "title": "play", "completed": false },
-  { "id": 3, "title": "sleep", "completed": true },
-  { "id": 4, "title": "watch TV", "completed": false },
-  { "id": 5, "title": "eat", "completed": true }
-]
