@@ -1,6 +1,6 @@
-import { useDispatch } from 'react-redux';
-import { logIn } from '../../redux/auth/operations';
-import css from './LoginForm.module.css';
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/auth/operations";
+import css from "./LoginForm.module.css";
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
@@ -10,17 +10,17 @@ export const LoginForm = () => {
     const form = e.currentTarget;
 
     dispatch(
-      logIn({
+      login({
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
     )
       .unwrap()
       .then(() => {
-        console.log('login success');
+        console.log("login success");
       })
       .catch(() => {
-        console.log('login error');
+        console.log("login error");
       });
 
     form.reset();

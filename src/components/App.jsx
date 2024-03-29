@@ -1,17 +1,17 @@
-import { useEffect, lazy } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { Layout } from './Layout';
-import { PrivateRoute } from './PrivateRoute';
-import { RestrictedRoute } from './RestrictedRoute';
-import { refreshUser } from '../redux/auth/operations';
-import { useAuth } from '../hooks';
+import { useEffect, lazy } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import { Layout } from "./Layout";
+import { PrivateRoute } from "./PrivateRoute";
+import { RestrictedRoute } from "./RestrictedRoute";
+import { refreshUser } from "../redux/auth/operations";
+import { useAuth } from "../hooks";
 
-const HomePage = lazy(() => import('../pages/Home'));
-const RegisterPage = lazy(() => import('../pages/Register'));
-const LoginPage = lazy(() => import('../pages/Login'));
-const TasksPage = lazy(() => import('../pages/Tasks'));
+const HomePage = lazy(() => import("../pages/Home"));
+const Register = lazy(() => import("../pages/Register"));
+const Login = lazy(() => import("../pages/Login"));
+const ContactForm = lazy(() => import("./ContactForm/ContactForm"));
+const NotFoundPage = lazy(() => import("../pages/NotFoundPage"));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -28,30 +28,16 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route
-            path="/register"
-            element={
-              <RestrictedRoute
-                redirectTo="/tasks"
-                component={<RegisterPage />}
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <RestrictedRoute redirectTo="/tasks" component={<LoginPage />} />
-            }
-          />
-          <Route
-            path="/tasks"
-            element={
-              <PrivateRoute redirectTo="/login" component={<TasksPage />} />
-            }
-          />
+          <Route element={<RestrictedRoute />}>
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
+          <Route element={<PrivateRoute />}>
+            <Route path="contacts" element={<ContactForm />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
-      <Toaster />
     </>
   );
 };
