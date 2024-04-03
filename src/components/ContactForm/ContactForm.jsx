@@ -1,19 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contacts/operations";
+import { addContact, fetchContacts } from "../../redux/contacts/operations";
 import css from "./ContactForm.module.css";
 import toast from "react-hot-toast";
-import { selectContacts } from "../../redux/contacts/selectors";
+import { selectLoading } from "../../redux/contacts/selectors";
 import SearchBox from "../SearchBox/SearchBox";
-
 import Contacts from "../Contacts/Contacts";
 
 export default function ContactForm() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const loading = useSelector(selectLoading);
 
-  const contacts = useSelector(selectContacts);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -41,7 +43,6 @@ export default function ContactForm() {
 
   return (
     <div>
-      {" "}
       <form className={css.form} onSubmit={handleSubmit}>
         <label>
           <span className={css.label_span}>Name</span>
@@ -65,8 +66,8 @@ export default function ContactForm() {
         </label>
         <button type="submit">Add contact</button>
       </form>
-      {contacts.length === 0 ? (
-        ""
+      {loading ? (
+        <p>Loading...</p>
       ) : (
         <div className="contacts_page-contacts-con">
           <h2>Contacts</h2>

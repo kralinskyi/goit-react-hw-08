@@ -4,13 +4,12 @@ import Contact from "../Contact/Contact";
 import { selectFilteredContacts } from "../../redux/contacts/selectors";
 import DocumentTitle from "../DocumentTitle";
 
-export default function ContactList() {
+export default function Contacts() {
   const filteredContacts = useSelector(selectFilteredContacts);
 
   return (
     <>
       <DocumentTitle>Your contacts</DocumentTitle>
-
       <ul className={css.contacts_list}>
         {filteredContacts.map((contact) => (
           <Contact key={contact.id} contact={contact} />

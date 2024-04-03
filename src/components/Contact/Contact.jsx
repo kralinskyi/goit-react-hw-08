@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import css from "./Contact.module.css";
 import { deleteContact } from "../../redux/contacts/operations";
 import toast from "react-hot-toast";
+/* eslint-disable react/prop-types */
 
 export default function Contact({ contact: { id, name, number } }) {
   const dispatch = useDispatch();

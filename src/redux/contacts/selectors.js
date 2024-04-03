@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-export const selectLoading = (state) => state.tasks.loading;
+export const selectLoading = (state) => state.contacts.loading;
 
 export const selectContacts = (state) => state.contacts.items;
 
